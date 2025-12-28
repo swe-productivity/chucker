@@ -84,8 +84,12 @@ class HttpBinHttpTask(
             deny().enqueue(noOpCallback)
             cache("Mon").enqueue(noOpCallback)
             cache(30).enqueue(noOpCallback)
-            redirectTo("https://ascii.cl?parameter=%22Click+on+%27URL+Encode%27%21%22").enqueue(noOpCallback)
-            redirectTo("https://ascii.cl?parameter=\"Click on 'URL Encode'!\"").enqueue(noOpCallback)
+            redirectTo(
+                "https://ascii.cl?parameter=%22Click+on+%27URL+Encode%27%21%22",
+            ).enqueue(noOpCallback)
+            redirectTo(
+                "https://ascii.cl?parameter=\"Click on 'URL Encode'!\"",
+            ).enqueue(noOpCallback)
             postForm("Value 1", "Value with symbols &$%").enqueue(noOpCallback)
             postRawRequestBody(oneShotRequestBody()).enqueue(noOpCallback)
             anything().enqueue(noOpCallback)

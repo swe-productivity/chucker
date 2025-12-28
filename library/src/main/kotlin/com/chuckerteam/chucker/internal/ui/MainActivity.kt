@@ -67,7 +67,9 @@ internal class MainActivity :
         ) { isPermissionGranted: Boolean ->
             if (!isPermissionGranted) {
                 showToast(
-                    applicationContext.getString(R.string.chucker_notifications_permission_not_granted),
+                    applicationContext.getString(
+                        R.string.chucker_notifications_permission_not_granted,
+                    ),
                     Toast.LENGTH_LONG,
                 )
                 Logger.error("Notification permission denied. Can't show transactions info")
@@ -165,7 +167,9 @@ internal class MainActivity :
                 Snackbar
                     .make(
                         mainBinding.root,
-                        applicationContext.getString(R.string.chucker_notifications_permission_not_granted),
+                        applicationContext.getString(
+                            R.string.chucker_notifications_permission_not_granted,
+                        ),
                         Snackbar.LENGTH_LONG,
                     ).setAction(applicationContext.getString(R.string.chucker_change)) {
                         Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -287,7 +291,8 @@ internal class MainActivity :
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val selectedIds = savedInstanceState.getLongArray(KEY_SELECTED_TRANSACTION_IDS)?.toList().orEmpty()
+        val selectedIds =
+            savedInstanceState.getLongArray(KEY_SELECTED_TRANSACTION_IDS)?.toList().orEmpty()
         viewModel.restoreSelection(selectedIds)
         transactionsAdapter.setSelectedTransactionIds(selectedIds)
     }

@@ -106,6 +106,7 @@ public class ChuckerCollector
                     ExportFormat.LOG -> {
                         TransactionListDetailsSharable(transactions, encodeUrls = false)
                     }
+
                     ExportFormat.HAR -> {
                         TransactionDetailsHarSharable(
                             JsonConverter.nonNullSerializerInstance

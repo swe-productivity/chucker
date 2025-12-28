@@ -48,7 +48,9 @@ import kotlin.math.abs
 internal class TransactionPayloadFragment :
     Fragment(),
     SearchView.OnQueryTextListener {
-    private val viewModel: TransactionViewModel by activityViewModels { TransactionViewModelFactory() }
+    private val viewModel: TransactionViewModel by activityViewModels {
+        TransactionViewModelFactory()
+    }
 
     private val payloadType: PayloadType by lazy(LazyThreadSafetyMode.NONE) {
         arguments?.getSerializable(ARG_TYPE) as PayloadType
@@ -198,7 +200,8 @@ internal class TransactionPayloadFragment :
 
     private fun onSearchScrollerButtonClick(goNext: Boolean) {
         // hide the keyboard if visible
-        val inputMethodManager = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         if (inputMethodManager.isAcceptingText) {
             activity?.currentFocus?.clearFocus()
             inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
@@ -209,7 +212,10 @@ internal class TransactionPayloadFragment :
                 if (goNext) {
                     ((currentSearchScrollIndex + 1) % scrollableIndices.size)
                 } else {
-                    (abs(currentSearchScrollIndex - 1 + scrollableIndices.size) % scrollableIndices.size)
+                    (
+                        abs(currentSearchScrollIndex - 1 + scrollableIndices.size) %
+                            scrollableIndices.size
+                    )
                 }
 
             scrollToSearchedItemPosition(scrollToIndex)
@@ -283,11 +289,13 @@ internal class TransactionPayloadFragment :
     private fun shouldShowSearchIcon(transaction: HttpTransaction?) =
         when (payloadType) {
             PayloadType.REQUEST -> {
-                (false == transaction?.isRequestBodyEncoded) && (0L != (transaction.requestPayloadSize))
+                (false == transaction?.isRequestBodyEncoded) &&
+                    (0L != (transaction.requestPayloadSize))
             }
 
             PayloadType.RESPONSE -> {
-                (false == transaction?.isResponseBodyEncoded) && (0L != (transaction.responsePayloadSize))
+                (false == transaction?.isResponseBodyEncoded) &&
+                    (0L != (transaction.responsePayloadSize))
             }
         }
 
@@ -445,17 +453,31 @@ internal class TransactionPayloadFragment :
             when {
                 isBodyEncoded -> {
                     val text = requireContext().getString(R.string.chucker_body_omitted)
-                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(text)))
+                    result.add(
+                        TransactionPayloadItem.BodyLineItem(
+                            SpannableStringBuilder.valueOf(
+                                text,
+                            ),
+                        ),
+                    )
                 }
 
                 bodyString.isBlank() -> {
                     val text = requireContext().getString(R.string.chucker_body_empty)
-                    result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(text)))
+                    result.add(
+                        TransactionPayloadItem.BodyLineItem(
+                            SpannableStringBuilder.valueOf(
+                                text,
+                            ),
+                        ),
+                    )
                 }
 
                 else -> {
                     // adding copy item
-                    result.add(TransactionPayloadItem.CopyItem(getString(R.string.chucker_copy_response)))
+                    result.add(
+                        TransactionPayloadItem.CopyItem(getString(R.string.chucker_copy_response)),
+                    )
 
                     bodyString.lines().forEach {
                         result.add(

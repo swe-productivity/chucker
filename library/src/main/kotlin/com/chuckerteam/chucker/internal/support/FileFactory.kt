@@ -7,7 +7,8 @@ import java.util.concurrent.atomic.AtomicLong
 internal object FileFactory {
     private val uniqueIdGenerator = AtomicLong()
 
-    fun create(directory: File) = create(directory, fileName = "chucker-${uniqueIdGenerator.getAndIncrement()}")
+    fun create(directory: File) =
+        create(directory, fileName = "chucker-${uniqueIdGenerator.getAndIncrement()}")
 
     fun create(
         directory: File,

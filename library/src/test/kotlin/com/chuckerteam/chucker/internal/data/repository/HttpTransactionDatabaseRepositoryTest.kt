@@ -170,9 +170,13 @@ internal class HttpTransactionDatabaseRepositoryTest {
             testObject.insertTransaction(transactionTwo)
             testObject.insertTransaction(transactionThree)
 
-            testObject.getFilteredTransactionTuples(code = "", path = "def").observeForever { result ->
-                assertTuples(listOf(transactionThree, transactionTwo), result)
-            }
+            testObject
+                .getFilteredTransactionTuples(
+                    code = "",
+                    path = "def",
+                ).observeForever { result ->
+                    assertTuples(listOf(transactionThree, transactionTwo), result)
+                }
         }
 
     @Test
@@ -198,9 +202,13 @@ internal class HttpTransactionDatabaseRepositoryTest {
             testObject.insertTransaction(transactionTwo)
             testObject.insertTransaction(transactionThree)
 
-            testObject.getFilteredTransactionTuples(code = "4", path = "").observeForever { result ->
-                assertTuples(listOf(transactionThree, transactionOne), result)
-            }
+            testObject
+                .getFilteredTransactionTuples(
+                    code = "4",
+                    path = "",
+                ).observeForever { result ->
+                    assertTuples(listOf(transactionThree, transactionOne), result)
+                }
         }
 
     @Test
@@ -231,9 +239,11 @@ internal class HttpTransactionDatabaseRepositoryTest {
             testObject.insertTransaction(transactionTwo)
             testObject.insertTransaction(transactionThree)
             testObject.insertTransaction(transactionFour)
-            testObject.getFilteredTransactionTuples(code = "", path = "GetDe").observeForever { result ->
-                assertTuples(listOf(transactionFour), result)
-            }
+            testObject
+                .getFilteredTransactionTuples(code = "", path = "GetDe")
+                .observeForever { result ->
+                    assertTuples(listOf(transactionFour), result)
+                }
         }
 
     @Test
@@ -265,7 +275,10 @@ internal class HttpTransactionDatabaseRepositoryTest {
             testObject.insertTransaction(transactionThree)
             testObject.insertTransaction(transactionFour)
             testObject.getFilteredTransactionTuples(code = "", path = "").observeForever { result ->
-                assertTuples(listOf(transactionFour, transactionThree, transactionOne, transactionTwo), result)
+                assertTuples(
+                    listOf(transactionFour, transactionThree, transactionOne, transactionTwo),
+                    result,
+                )
             }
         }
 

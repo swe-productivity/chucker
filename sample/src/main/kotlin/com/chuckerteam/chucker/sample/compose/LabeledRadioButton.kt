@@ -44,6 +44,7 @@ import com.chuckerteam.chucker.sample.compose.theme.ChuckerTheme
  * @param index       The 1-based position of this radio button within its group of two for accessibility purpose.
  * @param modifier    Optional [Modifier] for layout or drawing adjustments.
  */
+@Suppress("FunctionNaming")
 @Composable
 internal fun LabeledRadioButton(
     label: String,
@@ -80,7 +81,10 @@ internal fun LabeledRadioButton(
             text = label,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.testTag(ChuckerTestTags.LABELED_RADIO_BUTTON_LABEL_TEXT + "_" + label),
+            modifier =
+                Modifier.testTag(
+                    ChuckerTestTags.LABELED_RADIO_BUTTON_LABEL_TEXT + "_" + label,
+                ),
         )
     }
 }
@@ -97,6 +101,7 @@ internal fun LabeledRadioButton(
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
+@Suppress("FunctionNaming")
 @Composable
 private fun LabeledRadioButtonPreview() {
     ChuckerTheme {

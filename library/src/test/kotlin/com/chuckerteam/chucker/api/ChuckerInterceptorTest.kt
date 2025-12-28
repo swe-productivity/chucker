@@ -118,7 +118,9 @@ internal class ChuckerInterceptorTest {
 
     @ParameterizedTest
     @EnumSource(value = ClientFactory::class)
-    fun `compressed response body without content is transparent to Chucker`(factory: ClientFactory) {
+    fun `compressed response body without content is transparent to Chucker`(
+        factory: ClientFactory,
+    ) {
         server.enqueue(
             MockResponse().addHeader("Content-Encoding: gzip").setResponseCode(HTTP_NO_CONTENT),
         )
@@ -135,7 +137,9 @@ internal class ChuckerInterceptorTest {
 
     @ParameterizedTest
     @EnumSource(value = ClientFactory::class)
-    fun `compressed response body without content is transparent to consumer`(factory: ClientFactory) {
+    fun `compressed response body without content is transparent to consumer`(
+        factory: ClientFactory,
+    ) {
         server.enqueue(
             MockResponse().addHeader("Content-Encoding: br").setResponseCode(HTTP_NO_CONTENT),
         )
@@ -151,10 +155,10 @@ internal class ChuckerInterceptorTest {
     @EnumSource(value = ClientFactory::class)
     fun `brotli response body is uncompressed for Chucker`(factory: ClientFactory) {
         val brotliEncodedString =
-            "1bce00009c05ceb9f028d14e416230f718960a537b0922d2f7b6adef56532c08dff44551516690131494db" +
-                "6021c7e3616c82c1bc2416abb919aaa06e8d30d82cc2981c2f5c900bfb8ee29d5c03deb1c0dacff80e" +
-                "abe82ba64ed250a497162006824684db917963ecebe041b352a3e62d629cc97b95cac24265b175171e" +
-                "5cb384cd0912aeb5b5dd9555f2dd1a9b20688201"
+            "1bce00009c05ceb9f028d14e416230f718960a537b0922d2f7b6adef56532c08dff445515166901314" +
+                "94db6021c7e3616c82c1bc2416abb919aaa06e8d30d82cc2981c2f5c900bfb8ee29d5c03deb1c0d" +
+                "acff80eabe82ba64ed250a497162006824684db917963ecebe041b352a3e62d629cc97b95cac2426" +
+                "5b175171e5cb384cd0912aeb5b5dd9555f2dd1a9b20688201"
 
         val brotliSource = Buffer().write(brotliEncodedString.decodeHex())
 
@@ -176,10 +180,10 @@ internal class ChuckerInterceptorTest {
     @EnumSource(value = ClientFactory::class)
     fun `brotli response body is not changed for consumer`(factory: ClientFactory) {
         val brotliEncodedString =
-            "1bce00009c05ceb9f028d14e416230f718960a537b0922d2f7b6adef56532c08dff44551516690131494db" +
-                "6021c7e3616c82c1bc2416abb919aaa06e8d30d82cc2981c2f5c900bfb8ee29d5c03deb1c0dacff80e" +
-                "abe82ba64ed250a497162006824684db917963ecebe041b352a3e62d629cc97b95cac24265b175171e" +
-                "5cb384cd0912aeb5b5dd9555f2dd1a9b20688201"
+            "1bce00009c05ceb9f028d14e416230f718960a537b0922d2f7b6adef56532c08dff445515166901314" +
+                "94db6021c7e3616c82c1bc2416abb919aaa06e8d30d82cc2981c2f5c900bfb8ee29d5c03deb1c0d" +
+                "acff80eabe82ba64ed250a497162006824684db917963ecebe041b352a3e62d629cc97b95cac2426" +
+                "5b175171e5cb384cd0912aeb5b5dd9555f2dd1a9b20688201"
 
         val brotliSource = Buffer().write(brotliEncodedString.decodeHex())
 
@@ -304,7 +308,9 @@ internal class ChuckerInterceptorTest {
 
     @ParameterizedTest
     @EnumSource(value = ClientFactory::class)
-    fun `response body length is limited by interceptor's max content length`(factory: ClientFactory) {
+    fun `response body length is limited by interceptor's max content length`(
+        factory: ClientFactory,
+    ) {
         val body =
             Buffer().apply {
                 repeat(10_000) { writeUtf8("!") }
@@ -328,7 +334,9 @@ internal class ChuckerInterceptorTest {
 
     @ParameterizedTest
     @EnumSource(value = ClientFactory::class)
-    fun `response payload size is not limited by interceptor's max content length`(factory: ClientFactory) {
+    fun `response payload size is not limited by interceptor's max content length`(
+        factory: ClientFactory,
+    ) {
         val body =
             Buffer().apply {
                 repeat(10_000) { writeUtf8("!") }
@@ -420,7 +428,9 @@ internal class ChuckerInterceptorTest {
 
     @ParameterizedTest
     @EnumSource(value = ClientFactory::class)
-    fun `response body is available to Chucker if consumer does not read it`(factory: ClientFactory) {
+    fun `response body is available to Chucker if consumer does not read it`(
+        factory: ClientFactory,
+    ) {
         val body = Buffer().writeUtf8("Hello, world!")
         server.enqueue(MockResponse().setBody(body))
         val request = Request.Builder().url(serverUrl).build()
@@ -447,7 +457,9 @@ internal class ChuckerInterceptorTest {
     @ParameterizedTest
     @SuppressLint("CheckResult")
     @EnumSource(value = ClientFactory::class)
-    fun `response body is available to Chucker if there are parsing errors`(factory: ClientFactory) {
+    fun `response body is available to Chucker if there are parsing errors`(
+        factory: ClientFactory,
+    ) {
         val providedJson =
             """
             {
@@ -640,7 +652,11 @@ internal class ChuckerInterceptorTest {
         val call = client.newCall(request)
 
         server.enqueue(
-            MockResponse().addHeader("Header-To-Redact", "Goodbye").setResponseCode(HTTP_NO_CONTENT),
+            MockResponse()
+                .addHeader(
+                    "Header-To-Redact",
+                    "Goodbye",
+                ).setResponseCode(HTTP_NO_CONTENT),
         )
         val response = call.execute()
 
@@ -650,7 +666,9 @@ internal class ChuckerInterceptorTest {
                 ClientFactory.APPLICATION -> response
                 ClientFactory.NETWORK -> response.networkResponse!!
             }
-        assertThat(transaction.requestHeadersSize).isEqualTo(expectedResponse.request.headers.byteCount())
+        assertThat(
+            transaction.requestHeadersSize,
+        ).isEqualTo(expectedResponse.request.headers.byteCount())
         assertThat(transaction.responseHeadersSize).isEqualTo(expectedResponse.headers.byteCount())
     }
 

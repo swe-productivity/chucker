@@ -221,6 +221,7 @@ internal class HttpTransaction(
             contentType.contains("xml", ignoreCase = true) -> FormatUtils.formatXml(body)
             contentType.contains("x-www-form-urlencoded", ignoreCase = true) ->
                 FormatUtils.formatUrlEncodedForm(body)
+
             else -> body
         }
 
@@ -243,18 +244,21 @@ internal class HttpTransaction(
             contentType.contains("json", ignoreCase = true) && context != null -> {
                 SpanTextUtil(context).spanJson(body)
             }
+
             else -> formatBody(body.toString(), contentType)
         }
 
     private fun formatBytes(bytes: Long): String = FormatUtils.formatByteCount(bytes, true)
 
-    fun getFormattedRequestBody(): String = requestBody?.let { formatBody(it, requestContentType) } ?: ""
+    fun getFormattedRequestBody(): String =
+        requestBody?.let { formatBody(it, requestContentType) } ?: ""
 
     fun getSpannedRequestBody(context: Context?): CharSequence =
         requestBody?.let { spanBody(it, requestContentType, context) }
             ?: SpannableStringBuilder.valueOf("")
 
-    fun getFormattedResponseBody(): String = responseBody?.let { formatBody(it, responseContentType) } ?: ""
+    fun getFormattedResponseBody(): String =
+        responseBody?.let { formatBody(it, responseContentType) } ?: ""
 
     fun getSpannedResponseBody(context: Context?): CharSequence =
         responseBody?.let {
@@ -325,7 +329,11 @@ internal class HttpTransaction(
             (responseHeadersSize == other.responseHeadersSize) &&
             (responseBody == other.responseBody) &&
             (isResponseBodyEncoded == other.isResponseBodyEncoded) &&
-            (responseImageData?.contentEquals(other.responseImageData ?: byteArrayOf()) != false) &&
+            (
+                responseImageData?.contentEquals(
+                    other.responseImageData ?: byteArrayOf(),
+                ) != false
+            ) &&
             (graphQlOperationName == other.graphQlOperationName) &&
             (graphQlDetected == other.graphQlDetected)
     }

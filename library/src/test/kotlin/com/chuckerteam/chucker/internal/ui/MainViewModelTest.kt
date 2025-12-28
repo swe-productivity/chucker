@@ -100,6 +100,7 @@ internal class MainViewModelTest {
         }
 
     @Test
+    @Suppress("ktlint:standard:max-line-length")
     fun `when search query contains only digits, getFilteredTransactionTuples is called with correct parameters`() =
         runTest {
             val searchQuery = "123"
@@ -122,6 +123,7 @@ internal class MainViewModelTest {
         }
 
     @Test
+    @Suppress("ktlint:standard:max-line-length")
     fun `when search query contains text, getFilteredTransactionTuples is called with correct parameters`() =
         runTest {
             val searchQuery = "test"

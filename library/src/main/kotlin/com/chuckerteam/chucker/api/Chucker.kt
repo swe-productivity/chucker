@@ -28,7 +28,8 @@ public object Chucker {
      * Check if this instance is the operation one or no-op.
      * @return `true` if this is the operation instance.
      */
-    @Suppress("MayBeConst ") // https://github.com/ChuckerTeam/chucker/pull/169#discussion_r362341353
+    // https://github.com/ChuckerTeam/chucker/pull/169#discussion_r362341353
+    @Suppress("MayBeConst ", "ktlint:standard:no-consecutive-comments")
     public val isOp: Boolean = true
 
     /**

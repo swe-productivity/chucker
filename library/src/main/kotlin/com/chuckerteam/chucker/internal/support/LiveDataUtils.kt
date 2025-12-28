@@ -36,7 +36,8 @@ internal fun <T1, T2, R> LiveData<T1>.combineLatest(
     }
 
 @Suppress("MaxLineLength")
-internal fun <T1, T2> LiveData<T1>.combineLatest(other: LiveData<T2>): LiveData<Pair<T1, T2>> = combineLatest(other) { a, b -> a to b }
+internal fun <T1, T2> LiveData<T1>.combineLatest(other: LiveData<T2>): LiveData<Pair<T1, T2>> =
+    combineLatest(other) { a, b -> a to b }
 
 // Unlike built-in extension operation is performed on a provided thread pool.
 // This is needed in our case since we compare requests and responses which can be big

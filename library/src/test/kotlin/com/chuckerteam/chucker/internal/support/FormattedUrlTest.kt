@@ -16,7 +16,9 @@ internal class FormattedUrlTest {
         assertThat(formattedUrl.port).isEqualTo(443)
         assertThat(formattedUrl.path).isEqualTo("/path/to%20some/resource")
         assertThat(formattedUrl.query).isEqualTo("q=%22Hello,%20world!%22")
-        assertThat(formattedUrl.pathWithQuery).isEqualTo("/path/to%20some/resource?q=%22Hello,%20world!%22")
+        assertThat(
+            formattedUrl.pathWithQuery,
+        ).isEqualTo("/path/to%20some/resource?q=%22Hello,%20world!%22")
         assertThat(formattedUrl.url).isEqualTo(
             "https://www.example.com/path/to%20some/resource?q=%22Hello,%20world!%22",
         )
@@ -63,8 +65,12 @@ internal class FormattedUrlTest {
         assertThat(formattedUrl.port).isEqualTo(443)
         assertThat(formattedUrl.path).isEqualTo("/path/to some/resource")
         assertThat(formattedUrl.query).isEqualTo("q=\"Hello, world!\"")
-        assertThat(formattedUrl.pathWithQuery).isEqualTo("/path/to some/resource?q=\"Hello, world!\"")
-        assertThat(formattedUrl.url).isEqualTo("https://www.example.com/path/to some/resource?q=\"Hello, world!\"")
+        assertThat(
+            formattedUrl.pathWithQuery,
+        ).isEqualTo("/path/to some/resource?q=\"Hello, world!\"")
+        assertThat(
+            formattedUrl.url,
+        ).isEqualTo("https://www.example.com/path/to some/resource?q=\"Hello, world!\"")
     }
 
     @Test

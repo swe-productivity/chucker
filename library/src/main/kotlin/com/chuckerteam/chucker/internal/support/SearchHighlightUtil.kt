@@ -18,7 +18,8 @@ internal fun SpannableStringBuilder.highlightWithDefinedColors(
     startIndices: List<Int>,
     backgroundColor: Int,
     foregroundColor: Int,
-): SpannableStringBuilder = applyColoredSpannable(this, startIndices, search.length, backgroundColor, foregroundColor)
+): SpannableStringBuilder =
+    applyColoredSpannable(this, startIndices, search.length, backgroundColor, foregroundColor)
 
 internal fun CharSequence.indicesOf(input: String): List<Int> =
     try {

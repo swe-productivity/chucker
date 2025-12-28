@@ -1,20 +1,24 @@
+root = true
+
 [*]
 charset = utf-8
-indent_size = 4
-indent_style = space
+end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.yml]
-indent_size = 2
+[*.{kt,kts}]
+indent_style = space
+indent_size = 4
+continuation_indent_size = 4
+max_line_length = 100
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
+ij_kotlin_imports_layout = *,java.**,javax.**,kotlin.**
+ktlint_function_naming_ignore_when_annotated_with = Composable
 
-[**/test/**.kt]
-ktlint_ignore_back_ticked_identifier = true
-
-# Added to support compose function naming convection for sample Compose screens:
-[sample/src/main/kotlin/com/chuckerteam/chucker/sample/compose/**/*.kt]
-ktlint_standard_function-naming = disabled
-
-# for library theme:
-[library/src/main/kotlin/com/chuckerteam/chucker/internal/ui/theme/**/*.kt]
-ktlint_standard_function-naming = disabled
+[*.xml]
+indent_style = space
+indent_size = 4
+max_line_length = 120
+ij_xml_keep_line_breaks = true
+ij_xml_align_attributes = true

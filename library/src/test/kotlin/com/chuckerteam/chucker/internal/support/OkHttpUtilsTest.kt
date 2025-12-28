@@ -62,10 +62,10 @@ internal class OkHttpUtilsTest {
     @Test
     fun `brotli compressed response is uncompressed`() {
         val brotliEncodedString =
-            "1bce00009c05ceb9f028d14e416230f718960a537b0922d2f7b6adef56532c08dff44551516690131494db" +
-                "6021c7e3616c82c1bc2416abb919aaa06e8d30d82cc2981c2f5c900bfb8ee29d5c03deb1c0dacff80e" +
-                "abe82ba64ed250a497162006824684db917963ecebe041b352a3e62d629cc97b95cac24265b175171e" +
-                "5cb384cd0912aeb5b5dd9555f2dd1a9b20688201"
+            "1bce00009c05ceb9f028d14e416230f718960a537b0922d2f7b6adef56532c08dff445515166901314" +
+                "94db6021c7e3616c82c1bc2416abb919aaa06e8d30d82cc2981c2f5c900bfb8ee29d5c03deb1c0d" +
+                "acff80eabe82ba64ed250a497162006824684db917963ecebe041b352a3e62d629cc97b95cac2426" +
+                "5b175171e5cb384cd0912aeb5b5dd9555f2dd1a9b20688201"
 
         val brotliSource = Buffer().write(brotliEncodedString.decodeHex())
 
@@ -117,7 +117,14 @@ internal class OkHttpUtilsTest {
                     "gzip" to true,
                     "other" to false,
                 ).map { (encoding, result) ->
-                    val headers = if (encoding == null) headersOf() else headersOf("Content-Encoding", encoding)
+                    val headers =
+                        if (encoding ==
+                            null
+                        ) {
+                            headersOf()
+                        } else {
+                            headersOf("Content-Encoding", encoding)
+                        }
                     Arguments.of(headers, result)
                 }
     }
