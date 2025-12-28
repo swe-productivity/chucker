@@ -28,7 +28,12 @@ internal class TransactionCurlCommandSharable(
                 // try to keep to a single line and use a subshell to preserve any line breaks
                 writeUtf8(" --data $'${requestBody.replace("\n", "\\n")}'")
             }
-            writeUtf8((if (compressed) " --compressed " else " ") + transaction.getFormattedUrl(encode = true))
+            writeUtf8(
+                (if (compressed) " --compressed " else " ") +
+                    transaction.getFormattedUrl(
+                        encode = true,
+                    ),
+            )
         }
 
     private fun isCompressed(header: HttpHeader): Boolean =

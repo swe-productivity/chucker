@@ -46,9 +46,11 @@ fun createOkHttpClient(
         // Add a ChuckerInterceptor instance to your OkHttp client as an application or a network interceptor.
         // Learn more about interceptor types here – https://square.github.io/okhttp/interceptors.
         // "activeForType" is needed only in this sample to control it from the UI.
-        .addInterceptor(chuckerInterceptor.activeForType(InterceptorType.APPLICATION, interceptorTypeProvider))
-        .addNetworkInterceptor(chuckerInterceptor.activeForType(InterceptorType.NETWORK, interceptorTypeProvider))
-        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .addInterceptor(
+            chuckerInterceptor.activeForType(InterceptorType.APPLICATION, interceptorTypeProvider),
+        ).addNetworkInterceptor(
+            chuckerInterceptor.activeForType(InterceptorType.NETWORK, interceptorTypeProvider),
+        ).addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 }
 

@@ -36,7 +36,10 @@ internal class TransactionViewModel(
                 if (transaction == null) {
                     false
                 } else {
-                    transaction.getFormattedPath(encode = true) != transaction.getFormattedPath(encode = false)
+                    transaction.getFormattedPath(encode = true) !=
+                        transaction.getFormattedPath(
+                            encode = false,
+                        )
                 }
             }
 
@@ -45,10 +48,14 @@ internal class TransactionViewModel(
             .transaction()
             .getTransaction(transactionId)
             .map { transaction ->
-                transaction?.requestContentType?.contains("x-www-form-urlencoded", ignoreCase = true) ?: false
+                transaction?.requestContentType?.contains(
+                    "x-www-form-urlencoded",
+                    ignoreCase = true,
+                ) ?: false
             }
 
-    val transaction: LiveData<HttpTransaction?> = RepositoryProvider.transaction().getTransaction(transactionId)
+    val transaction: LiveData<HttpTransaction?> =
+        RepositoryProvider.transaction().getTransaction(transactionId)
 
     val formatRequestBody: LiveData<Boolean> =
         doesRequestBodyRequireEncoding

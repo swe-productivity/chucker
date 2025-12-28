@@ -67,7 +67,8 @@ internal class RequestProcessor(
                 Logger.error("Failed to read request payload", e)
                 return
             }
-        val limitingSource = LimitingSource(requestSource.uncompress(request.headers), maxContentLength)
+        val limitingSource =
+            LimitingSource(requestSource.uncompress(request.headers), maxContentLength)
 
         val contentBuffer = Buffer().apply { limitingSource.use { writeAll(it) } }
 

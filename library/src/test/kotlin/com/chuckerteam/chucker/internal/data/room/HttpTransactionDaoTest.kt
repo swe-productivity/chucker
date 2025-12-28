@@ -200,9 +200,13 @@ internal class HttpTransactionDaoTest {
             insertTransaction(transactionTwo)
             insertTransaction(transactionThree)
 
-            testObject.getFilteredTuples(codeQuery = "418", pathQuery = "%abc%").observeForever { result ->
-                assertTuples(listOf(transactionOne, transactionTwo), result)
-            }
+            testObject
+                .getFilteredTuples(
+                    codeQuery = "418",
+                    pathQuery = "%abc%",
+                ).observeForever { result ->
+                    assertTuples(listOf(transactionOne, transactionTwo), result)
+                }
         }
 
     @Test
@@ -263,9 +267,13 @@ internal class HttpTransactionDaoTest {
             insertTransaction(transactionTwo)
             insertTransaction(transactionThree)
 
-            testObject.getFilteredTuples(codeQuery = "4%", pathQuery = "%").observeForever { result ->
-                assertTuples(listOf(transactionThree, transactionOne), result)
-            }
+            testObject
+                .getFilteredTuples(
+                    codeQuery = "4%",
+                    pathQuery = "%",
+                ).observeForever { result ->
+                    assertTuples(listOf(transactionThree, transactionOne), result)
+                }
         }
 
     private suspend fun insertTransaction(transaction: HttpTransaction) {

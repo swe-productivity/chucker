@@ -34,7 +34,9 @@ internal class ChuckerInterceptorSkipRequestTest {
 
     @ParameterizedTest
     @EnumSource(value = ClientFactory::class)
-    fun `chucker processes all requests when no skipEndpoints are provided`(factory: ClientFactory) {
+    fun `chucker processes all requests when no skipEndpoints are provided`(
+        factory: ClientFactory,
+    ) {
         val chuckerInterceptorWithoutSkipping =
             ChuckerInterceptorDelegate(
                 cacheDirectoryProvider = { tempDir },
@@ -103,7 +105,9 @@ internal class ChuckerInterceptorSkipRequestTest {
 
     @ParameterizedTest
     @EnumSource(value = ClientFactory::class)
-    fun `chucker skips requests when skipPaths are provided as a regular expression`(factory: ClientFactory) {
+    fun `chucker skips requests when skipPaths are provided as a regular expression`(
+        factory: ClientFactory,
+    ) {
         val chuckerInterceptorWithSkipping =
             ChuckerInterceptorDelegate(
                 cacheDirectoryProvider = { tempDir },
@@ -192,7 +196,9 @@ internal class ChuckerInterceptorSkipRequestTest {
 
     @ParameterizedTest
     @EnumSource(value = ClientFactory::class)
-    fun `chucker does not skip requests when skipPaths are provided and doesn't match`(factory: ClientFactory) {
+    fun `chucker does not skip requests when skipPaths are provided and doesn't match`(
+        factory: ClientFactory,
+    ) {
         val chuckerInterceptorWithSkipping =
             ChuckerInterceptorDelegate(
                 cacheDirectoryProvider = { tempDir },

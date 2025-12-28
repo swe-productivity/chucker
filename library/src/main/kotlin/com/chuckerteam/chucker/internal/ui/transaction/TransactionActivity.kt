@@ -102,15 +102,18 @@ internal class TransactionActivity : BaseChuckerActivity() {
                     val encodeUrls = viewModel.encodeUrl.value!!
                     TransactionDetailsSharable(transaction, encodeUrls)
                 }
+
             R.id.share_curl ->
                 shareTransactionAsText { transaction ->
                     TransactionCurlCommandSharable(transaction)
                 }
+
             R.id.share_file ->
                 shareTransactionAsFile(EXPORT_TXT_FILE_NAME) { transaction ->
                     val encodeUrls = viewModel.encodeUrl.value!!
                     TransactionDetailsSharable(transaction, encodeUrls)
                 }
+
             R.id.share_har ->
                 shareTransactionAsFile(EXPORT_HAR_FILE_NAME) { transaction ->
                     TransactionDetailsHarSharable(
@@ -121,6 +124,7 @@ internal class TransactionActivity : BaseChuckerActivity() {
                         ),
                     )
                 }
+
             else -> super.onOptionsItemSelected(item)
         }
 
@@ -168,7 +172,12 @@ internal class TransactionActivity : BaseChuckerActivity() {
             if (shareIntent != null) {
                 startActivity(shareIntent)
             } else {
-                Toast.makeText(applicationContext, R.string.chucker_export_no_file, Toast.LENGTH_SHORT).show()
+                Toast
+                    .makeText(
+                        applicationContext,
+                        R.string.chucker_export_no_file,
+                        Toast.LENGTH_SHORT,
+                    ).show()
             }
         }
         return true

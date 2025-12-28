@@ -102,6 +102,7 @@ public class SpanTextUtil(
                     sb.setBooleanColor(tokenIndex).also { endIndex ->
                         index = endIndex
                     }
+
                 TokenType.ARRAY,
                 TokenType.OBJECT,
                 TokenType.KEY_SEPARATOR,
@@ -114,10 +115,12 @@ public class SpanTextUtil(
                     )
                     index = tokenIndex + 1
                 }
+
                 TokenType.STRING ->
                     sb.setStringColor(tokenIndex, lastTokenType)?.also { endIndex ->
                         index = endIndex + 1
                     } ?: return sb
+
                 TokenType.NONE -> return sb
             }
             lastTokenType = tokenType
@@ -181,6 +184,7 @@ public class SpanTextUtil(
                 -> {
                     jsonKeyColor
                 }
+
                 else -> {
                     jsonValueColor
                 }

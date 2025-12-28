@@ -156,7 +156,9 @@ internal class TransactionAdapter internal constructor(
                 host.text = transaction.host
                 timeStart.text = DateFormat.getTimeInstance().format(transaction.requestDate)
 
-                setProtocolImage(if (transaction.isSsl) ProtocolResources.Https() else ProtocolResources.Http())
+                setProtocolImage(
+                    if (transaction.isSsl) ProtocolResources.Https() else ProtocolResources.Http(),
+                )
 
                 if (transaction.status == HttpTransaction.Status.Complete) {
                     code.text = transaction.responseCode.toString()
@@ -226,7 +228,8 @@ internal class TransactionAdapter internal constructor(
                     (transaction.status === HttpTransaction.Status.Failed) -> colorError
                     (transaction.status === HttpTransaction.Status.Requested) -> colorRequested
                     (transaction.responseCode == null) -> colorDefault
-                    (transaction.responseCode!! >= HttpsURLConnection.HTTP_INTERNAL_ERROR) -> color500
+                    (transaction.responseCode!! >= HttpsURLConnection.HTTP_INTERNAL_ERROR) ->
+                        color500
                     (transaction.responseCode!! >= HttpsURLConnection.HTTP_BAD_REQUEST) -> color400
                     (transaction.responseCode!! >= HttpsURLConnection.HTTP_MULT_CHOICE) -> color300
                     else -> colorDefault

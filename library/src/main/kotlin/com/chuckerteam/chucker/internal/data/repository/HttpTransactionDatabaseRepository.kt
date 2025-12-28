@@ -32,7 +32,8 @@ internal class HttpTransactionDatabaseRepository(
             .getById(transactionId)
             .distinctUntilChanged { old, new -> old?.hasTheSameContent(new) != false }
 
-    override fun getSortedTransactionTuples(): LiveData<List<HttpTransactionTuple>> = transactionDao.getSortedTuples()
+    override fun getSortedTransactionTuples(): LiveData<List<HttpTransactionTuple>> =
+        transactionDao.getSortedTuples()
 
     override suspend fun deleteAllTransactions() {
         transactionDao.deleteAll()
@@ -43,7 +44,8 @@ internal class HttpTransactionDatabaseRepository(
         transaction.id = id ?: 0
     }
 
-    override suspend fun updateTransaction(transaction: HttpTransaction): Int = transactionDao.update(transaction)
+    override suspend fun updateTransaction(transaction: HttpTransaction): Int =
+        transactionDao.update(transaction)
 
     override suspend fun deleteOldTransactions(threshold: Long) {
         transactionDao.deleteBefore(threshold)
@@ -60,6 +62,7 @@ internal class HttpTransactionDatabaseRepository(
         transactionDao.deleteSelected(selectedTransactions)
     }
 
-    override suspend fun getSelectedTransactions(selectedTransactions: List<Long>): List<HttpTransaction> =
-        transactionDao.getSelectedTransactions(selectedTransactions)
+    override suspend fun getSelectedTransactions(
+        selectedTransactions: List<Long>,
+    ): List<HttpTransaction> = transactionDao.getSelectedTransactions(selectedTransactions)
 }

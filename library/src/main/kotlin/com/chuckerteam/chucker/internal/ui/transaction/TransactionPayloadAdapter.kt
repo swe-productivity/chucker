@@ -52,12 +52,14 @@ internal class TransactionBodyAdapter(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             TYPE_HEADERS -> {
-                val headersItemBinding = ChuckerTransactionItemHeadersBinding.inflate(inflater, parent, false)
+                val headersItemBinding =
+                    ChuckerTransactionItemHeadersBinding.inflate(inflater, parent, false)
                 TransactionPayloadViewHolder.HeaderViewHolder(headersItemBinding)
             }
 
             TYPE_BODY_LINE -> {
-                val bodyItemBinding = ChuckerTransactionItemBodyLineBinding.inflate(inflater, parent, false)
+                val bodyItemBinding =
+                    ChuckerTransactionItemBodyLineBinding.inflate(inflater, parent, false)
                 TransactionPayloadViewHolder.BodyLineViewHolder(bodyItemBinding)
             }
 
@@ -68,7 +70,8 @@ internal class TransactionBodyAdapter(
             }
 
             else -> {
-                val imageItemBinding = ChuckerTransactionItemImageBinding.inflate(inflater, parent, false)
+                val imageItemBinding =
+                    ChuckerTransactionItemImageBinding.inflate(inflater, parent, false)
                 TransactionPayloadViewHolder.ImageViewHolder(imageItemBinding)
             }
         }

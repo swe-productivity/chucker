@@ -47,28 +47,32 @@ internal class RequestProcessorTest {
     }
 
     @Test
-    fun `GIVEN an Url containing graphql path WHEN process request THEN transaction isGraphQLRequest`() {
-        val transaction = HttpTransaction()
-        val request: Request =
-            mockk(relaxed = true) {
-                every { url } returns "http://some/api/graphql".toHttpUrl()
-            }
-        requestProcessor.process(request, transaction)
+    @Suppress("ktlint:standard:max-line-length")
+    fun `GIVEN an Url containing graphql path WHEN process request THEN transaction isGraphQLRequest`() =
+        run {
+            val transaction = HttpTransaction()
+            val request: Request =
+                mockk(relaxed = true) {
+                    every { url } returns "http://some/api/graphql".toHttpUrl()
+                }
+            requestProcessor.process(request, transaction)
 
-        assertTrue(transaction.graphQlDetected)
-    }
+            assertTrue(transaction.graphQlDetected)
+        }
 
     @Test
-    fun `GIVEN a url with no graphql path WHEN process request THEN transaction !isGraphQLRequest`() {
-        val transaction = HttpTransaction()
-        val request: Request =
-            mockk(relaxed = true) {
-                every { url } returns "http://some/random/api".toHttpUrl()
-            }
-        requestProcessor.process(request, transaction)
+    @Suppress("ktlint:standard:max-line-length")
+    fun `GIVEN a url with no graphql path WHEN process request THEN transaction !isGraphQLRequest`() =
+        run {
+            val transaction = HttpTransaction()
+            val request: Request =
+                mockk(relaxed = true) {
+                    every { url } returns "http://some/random/api".toHttpUrl()
+                }
+            requestProcessor.process(request, transaction)
 
-        assertFalse(transaction.graphQlDetected)
-    }
+            assertFalse(transaction.graphQlDetected)
+        }
 
     @Test
     fun `GIVEN a url with graphql host WHEN process request THEN transaction isGraphQLRequest`() {

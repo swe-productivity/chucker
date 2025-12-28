@@ -53,7 +53,12 @@ internal object FormatUtils {
         val exp = (ln(bytes.toDouble()) / ln(unit.toDouble())).toInt()
         val pre = (if (si) "kMGTPE" else "KMGTPE")[exp - 1] + if (si) "" else "i"
 
-        return String.format(Locale.US, "%.1f %sB", bytes / unit.toDouble().pow(exp.toDouble()), pre)
+        return String.format(
+            Locale.US,
+            "%.1f %sB",
+            bytes / unit.toDouble().pow(exp.toDouble()),
+            pre,
+        )
     }
 
     fun formatJson(json: String): String =
@@ -71,7 +76,8 @@ internal object FormatUtils {
             documentFactory.isExpandEntityReferences = false
 
             val documentBuilder: DocumentBuilder = documentFactory.newDocumentBuilder()
-            val inputSource = InputSource(ByteArrayInputStream(xml.toByteArray(Charset.defaultCharset())))
+            val inputSource =
+                InputSource(ByteArrayInputStream(xml.toByteArray(Charset.defaultCharset())))
             val document: Document = documentBuilder.parse(inputSource)
 
             val domSource = DOMSource(document)

@@ -104,7 +104,8 @@ internal class ResponseProcessor(
 
         val contentType = responseBody.contentType()
 
-        val isImageContentType = contentType?.toString()?.contains(CONTENT_TYPE_IMAGE, ignoreCase = true) == true
+        val isImageContentType =
+            contentType?.toString()?.contains(CONTENT_TYPE_IMAGE, ignoreCase = true) == true
         if (isImageContentType) {
             if (payload.size < MAX_BLOB_SIZE) {
                 transaction.responseImageData = payload.readByteArray()

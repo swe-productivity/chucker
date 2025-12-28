@@ -132,7 +132,8 @@ internal class TransactionCurlCommandSharableTest {
 
             val sharedContent = sharableTransaction.toSharableUtf8Content(context)
 
-            val expected = "curl -X $method -H \"Accept-Encoding: br\" --compressed http://localhost/getUsers"
+            val expected =
+                "curl -X $method -H \"Accept-Encoding: br\" --compressed http://localhost/getUsers"
 
             assertThat(sharedContent).isEqualTo(expected)
         }

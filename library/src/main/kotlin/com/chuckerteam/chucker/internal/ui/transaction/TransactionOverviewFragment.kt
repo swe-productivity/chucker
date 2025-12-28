@@ -15,7 +15,9 @@ import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.support.combineLatest
 
 internal class TransactionOverviewFragment : Fragment() {
-    private val viewModel: TransactionViewModel by activityViewModels { TransactionViewModelFactory() }
+    private val viewModel: TransactionViewModel by activityViewModels {
+        TransactionViewModelFactory()
+    }
 
     private lateinit var overviewBinding: ChuckerFragmentTransactionOverviewBinding
 
@@ -29,7 +31,8 @@ internal class TransactionOverviewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        overviewBinding = ChuckerFragmentTransactionOverviewBinding.inflate(inflater, container, false)
+        overviewBinding =
+            ChuckerFragmentTransactionOverviewBinding.inflate(inflater, container, false)
         return overviewBinding.root
     }
 
@@ -72,10 +75,12 @@ internal class TransactionOverviewFragment : Fragment() {
                 null -> {
                     sslGroup.visibility = View.GONE
                 }
+
                 true -> {
                     sslGroup.visibility = View.VISIBLE
                     sslValue.setText(R.string.chucker_yes)
                 }
+
                 else -> {
                     sslGroup.visibility = View.VISIBLE
                     sslValue.setText(R.string.chucker_no)
