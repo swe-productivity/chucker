@@ -358,5 +358,61 @@
       app:layout_constraintTop_toBottomOf="@id/barrierResponseSize"
       tools:text="201 KB" />
 
+    <androidx.constraintlayout.widget.Barrier
+      android:id="@+id/barrierTotalSize"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:barrierDirection="bottom"
+      app:constraint_referenced_ids="totalSize" />
+
+    <TextView
+      android:id="@+id/graphQLVariables"
+      style="@style/Chucker.TextAppearance.Label"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/chucker_base_grid"
+      android:text="@string/chucker_graphql_variables"
+      app:layout_constraintEnd_toStartOf="@id/overviewGuideline"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/barrierTotalSize" />
+
+    <TextView
+      android:id="@+id/graphQLVariablesText"
+      style="@style/Chucker.TextAppearance.Value"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/chucker_base_grid"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/overviewGuideline"
+      app:layout_constraintTop_toBottomOf="@id/barrierTotalSize"
+      tools:text="Some Value" />
+
+    <androidx.constraintlayout.widget.Barrier
+      android:id="@+id/barrierGraphQLVariables"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:barrierDirection="bottom"
+      app:constraint_referenced_ids="graphQLVariables,graphQLVariablesText" />
+
+    <TextView
+      android:id="@+id/errorBody"
+      style="@style/Chucker.TextAppearance.Label"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="@string/chucker_error_body"
+      app:layout_constraintEnd_toStartOf="@id/overviewGuideline"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/barrierGraphQLVariables" />
+
+    <TextView
+      android:id="@+id/errorBodyText"
+      style="@style/Chucker.TextAppearance.Value"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/overviewGuideline"
+      app:layout_constraintTop_toBottomOf="@id/barrierGraphQLVariables"
+      tools:text="No error" />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

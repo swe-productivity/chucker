@@ -37,6 +37,7 @@ internal class RequestProcessor(
                 setGraphQlOperationName(it)
             }
             populateUrl(request.url)
+            setGraphQLVariables(request.url)
             graphQlDetected = isGraphQLRequest(this.graphQlOperationName, request)
 
             requestDate = System.currentTimeMillis()
@@ -77,6 +78,9 @@ internal class RequestProcessor(
         transaction.isRequestBodyEncoded = decodedContent == null
         if (decodedContent != null && limitingSource.isThresholdReached) {
             transaction.requestBody += context.getString(R.string.chucker_body_content_truncated)
+        }
+        if (transaction.graphQlDetected && decodedContent != null) {
+            transaction.setGraphQLVariablesFromBody(decodedContent)
         }
     }
 

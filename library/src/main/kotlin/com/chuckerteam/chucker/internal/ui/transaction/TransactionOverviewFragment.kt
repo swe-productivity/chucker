@@ -100,6 +100,8 @@ internal class TransactionOverviewFragment : Fragment() {
             requestSize.text = transaction?.requestSizeString
             responseSize.text = transaction?.responseSizeString
             totalSize.text = transaction?.totalSizeString
+            graphQLVariablesText.text = transaction?.graphQlVariables
+            errorBodyText.text = transaction?.errorBody
         }
     }
 }

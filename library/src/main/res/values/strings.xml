@@ -76,4 +76,6 @@
     <string name="chucker_copy_response">Copy Response</string>
     <string name="chucker_response_copied">Response Copied</string>
     <string name="chucker_request_copied">Request Copied</string>
+    <string name="chucker_graphql_variables">GraphQL</string>
+    <string name="chucker_error_body">Error Body</string>
 </resources>

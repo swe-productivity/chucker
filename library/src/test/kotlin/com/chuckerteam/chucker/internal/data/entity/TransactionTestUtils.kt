@@ -68,6 +68,8 @@ internal fun assertTuple(
     assertThat(actual?.requestPayloadSize).isEqualTo(expected.requestPayloadSize)
     assertThat(actual?.responsePayloadSize).isEqualTo(expected.responsePayloadSize)
     assertThat(actual?.error).isEqualTo(expected.error)
+    assertThat(actual?.graphQlVariables).isEqualTo(expected.graphQlVariables)
+    assertThat(actual?.errorBody).isEqualTo(expected.errorBody)
 }
 
 internal fun assertTransaction(
