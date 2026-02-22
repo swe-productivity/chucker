@@ -40,8 +40,7 @@ public class ChuckerTransactionDetailFragment : Fragment() {
         requireArguments().getLong(ARG_TRANSACTION_ID)
     }
 
-    private var bindingRef: ChuckerFragmentTransactionDetailBinding? = null
-    private val binding get() = bindingRef!!
+    private var binding: ChuckerFragmentTransactionDetailBinding? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -64,8 +63,8 @@ public class ChuckerTransactionDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        bindingRef = ChuckerFragmentTransactionDetailBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = ChuckerFragmentTransactionDetailBinding.inflate(inflater, container, false)
+        return binding!!.root
     }
 
     override fun onViewCreated(
@@ -73,13 +72,14 @@ public class ChuckerTransactionDetailFragment : Fragment() {
         savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewPager.adapter = TransactionPagerAdapter(requireContext(), childFragmentManager)
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding!!.viewPager.adapter =
+            TransactionPagerAdapter(requireContext(), childFragmentManager)
+        binding!!.tabLayout.setupWithViewPager(binding!!.viewPager)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        bindingRef = null
+        binding = null
     }
 
     public companion object {

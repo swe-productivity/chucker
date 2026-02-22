@@ -27,21 +27,21 @@ class InAppChuckerActivity : AppCompatActivity() {
         supportActionBar?.title = "In-App HTTP Inspector"
 
         if (savedInstanceState == null) {
-            val listFragment: ChuckerTransactionListFragment = Chucker.getTransactionListFragment()
-
-            listFragment.setOnTransactionClickListener { transactionId ->
-                val detailFragment: ChuckerTransactionDetailFragment =
-                    Chucker.getTransactionDetailFragment(transactionId)
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, detailFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragmentContainer, listFragment)
+                .replace(R.id.fragmentContainer, Chucker.getTransactionListFragment(), TAG_LIST)
+                .commit()
+        }
+
+        val listFragment =
+            supportFragmentManager.findFragmentByTag(TAG_LIST) as? ChuckerTransactionListFragment
+        listFragment?.setOnTransactionClickListener { transactionId ->
+            val detailFragment: ChuckerTransactionDetailFragment =
+                Chucker.getTransactionDetailFragment(transactionId)
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, detailFragment)
+                .addToBackStack(null)
                 .commit()
         }
     }
@@ -52,6 +52,8 @@ class InAppChuckerActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val TAG_LIST = "chucker_list"
+
         fun start(context: Context) {
             context.startActivity(Intent(context, InAppChuckerActivity::class.java))
         }

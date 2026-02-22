@@ -107,6 +107,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.fragment.testing)
 }
 
 apply(from = rootProject.file("gradle/gradle-mvn-push.gradle"))

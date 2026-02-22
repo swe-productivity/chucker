@@ -40,10 +40,15 @@ internal class TransactionOverviewFragment : Fragment() {
         menu: Menu,
         inflater: MenuInflater,
     ) {
-        menu.findItem(R.id.save_body).isVisible = false
+        menu.findItem(R.id.save_body)?.let { it.isVisible = false }
         viewModel.doesUrlRequireEncoding.observe(
             viewLifecycleOwner,
-            Observer { menu.findItem(R.id.encode_url).isVisible = it },
+            Observer { shouldEncode ->
+                menu.findItem(R.id.encode_url)?.let {
+                    it.isVisible =
+                        shouldEncode
+                }
+            },
         )
 
         super.onCreateOptionsMenu(menu, inflater)

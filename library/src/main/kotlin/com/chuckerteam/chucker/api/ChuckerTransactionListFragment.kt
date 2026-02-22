@@ -38,8 +38,7 @@ import com.chuckerteam.chucker.internal.ui.transaction.TransactionAdapter
 public class ChuckerTransactionListFragment : Fragment() {
     private val viewModel: MainViewModel by viewModels()
 
-    private var bindingRef: ChuckerFragmentTransactionListBinding? = null
-    private val binding get() = bindingRef!!
+    private var binding: ChuckerFragmentTransactionListBinding? = null
 
     private lateinit var transactionsAdapter: TransactionAdapter
 
@@ -55,8 +54,8 @@ public class ChuckerTransactionListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        bindingRef = ChuckerFragmentTransactionListBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = ChuckerFragmentTransactionListBinding.inflate(inflater, container, false)
+        return binding!!.root
     }
 
     override fun onViewCreated(
@@ -69,12 +68,23 @@ public class ChuckerTransactionListFragment : Fragment() {
             TransactionAdapter(
                 context = requireContext(),
                 onTransactionClick = { transactionId ->
-                    onTransactionClickListener?.invoke(transactionId)
+                    val listener = onTransactionClickListener
+                    if (listener != null) {
+                        listener.invoke(transactionId)
+                    } else {
+                        parentFragmentManager
+                            .beginTransaction()
+                            .replace(
+                                id,
+                                ChuckerTransactionDetailFragment.newInstance(transactionId),
+                            ).addToBackStack(null)
+                            .commit()
+                    }
                 },
                 onTransactionLongClick = {},
             )
 
-        binding.transactionsRecyclerView.apply {
+        binding!!.transactionsRecyclerView.apply {
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = transactionsAdapter
@@ -82,14 +92,14 @@ public class ChuckerTransactionListFragment : Fragment() {
 
         viewModel.transactions.observe(viewLifecycleOwner) { transactionTuples ->
             transactionsAdapter.submitList(transactionTuples)
-            binding.emptyStateText.isVisible = transactionTuples.isEmpty()
-            binding.transactionsRecyclerView.isVisible = transactionTuples.isNotEmpty()
+            binding!!.emptyStateText.isVisible = transactionTuples.isEmpty()
+            binding!!.transactionsRecyclerView.isVisible = transactionTuples.isNotEmpty()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        bindingRef = null
+        binding = null
     }
 
     /**

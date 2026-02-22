@@ -13,27 +13,21 @@ import org.junit.runner.RunWith
  *   ./gradlew :library:connectedAndroidTest
  */
 @RunWith(AndroidJUnit4::class)
-class ChuckerTransactionDetailFragmentTest {
+public class ChuckerTransactionDetailFragmentTest {
     @Test
-    fun newInstance_returnsNonNullFragment() {
+    public fun newInstance_returnsNonNullFragment() {
         val fragment = ChuckerTransactionDetailFragment.newInstance(transactionId = 1L)
         assertThat(fragment).isNotNull()
     }
 
     @Test
-    fun getTransactionDetailFragment_viaChuckerObject_returnsFragment() {
+    public fun getTransactionDetailFragment_viaChuckerObject_returnsFragment() {
         val fragment = Chucker.getTransactionDetailFragment(transactionId = 42L)
         assertThat(fragment).isInstanceOf(ChuckerTransactionDetailFragment::class.java)
     }
 
     @Test
-    fun newInstance_withTransactionIdZero_doesNotThrow() {
-        val fragment = ChuckerTransactionDetailFragment.newInstance(transactionId = 0L)
-        assertThat(fragment).isNotNull()
-    }
-
-    @Test
-    fun fragment_canBeLaunchedInContainer() {
+    public fun fragment_canBeLaunchedInContainer() {
         val scenario =
             launchFragmentInContainer {
                 ChuckerTransactionDetailFragment.newInstance(transactionId = 0L)
