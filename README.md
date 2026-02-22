@@ -115,9 +115,15 @@ val chuckerInterceptor = ChuckerInterceptor.Builder(context)
 
 // Don't forget to plug the ChuckerInterceptor inside the OkHttpClient
 val client = OkHttpClient.Builder()
+        // use network interceptor if you want to show all network traffic
+        //.addNetworkInterceptor(chuckerInterceptor)
+        // or
+        //use an application interceptor if you want app-level requests
         .addInterceptor(chuckerInterceptor)
         .build()
 ```
+
+Chucker can be added either as network interceptor(observes requests sent over the network) or as an application interceptor(observes requests at application layer).
 
 ### Redact-Header 👮‍♂️
 
@@ -211,7 +217,7 @@ If you're looking for the **latest stable version**, you can always find it in `
 * Why are retries and redirects not being captured discretely?
 * Why are my encoded request/response bodies not appearing as plain text?
 
-Please refer to [this section of the OkHttp documentation](https://square.github.io/okhttp/interceptors/). You can choose to use Chucker as either an application or network interceptor, depending on your requirements.
+Please refer to [this section of the OkHttp documentation](https://square.github.io/okhttp/interceptors/ , ). You can choose to use Chucker as either an application or network interceptor, depending on your requirements.
 
 * Why Android < 21 is no longer supported?
 
