@@ -43,6 +43,31 @@ public object Chucker {
             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
     /**
+     * Get a [ChuckerTransactionListFragment] that can be embedded directly into your app's UI.
+     *
+     * This allows you to integrate the Chucker transaction list inside your own Activity or
+     * Fragment, giving full control over the surrounding UI.
+     *
+     * @return A [ChuckerTransactionListFragment] ready to be added via a Fragment transaction.
+     */
+    @JvmStatic
+    public fun getTransactionListFragment(): ChuckerTransactionListFragment =
+        ChuckerTransactionListFragment.newInstance()
+
+    /**
+     * Get a [ChuckerTransactionDetailFragment] for the given transaction.
+     *
+     * This allows you to embed the transaction detail view (Overview, Request, Response tabs)
+     * directly inside your own Activity or Fragment.
+     *
+     * @param transactionId The ID of the HTTP transaction to display.
+     * @return A [ChuckerTransactionDetailFragment] ready to be added via a Fragment transaction.
+     */
+    @JvmStatic
+    public fun getTransactionDetailFragment(transactionId: Long): ChuckerTransactionDetailFragment =
+        ChuckerTransactionDetailFragment.newInstance(transactionId)
+
+    /**
      * Create a shortcut to launch Chucker UI.
      * @param context An Android [Context].
      */
