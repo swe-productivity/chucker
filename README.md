@@ -217,7 +217,7 @@ If you're looking for the **latest stable version**, you can always find it in `
 * Why are retries and redirects not being captured discretely?
 * Why are my encoded request/response bodies not appearing as plain text?
 
-Please refer to [this section of the OkHttp documentation](https://square.github.io/okhttp/interceptors/ , ). You can choose to use Chucker as either an application or network interceptor, depending on your requirements.
+Please refer to [this section of the OkHttp documentation](https://square.github.io/okhttp/interceptors/). You can choose to use Chucker as either an application or network interceptor, depending on your requirements.
 
 * Why Android < 21 is no longer supported?
 
