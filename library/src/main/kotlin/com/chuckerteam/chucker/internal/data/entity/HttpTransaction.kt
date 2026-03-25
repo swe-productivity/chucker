@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
+import okio.IOException
 import java.net.HttpURLConnection
 import java.util.Date
 
@@ -61,6 +62,8 @@ internal class HttpTransaction(
     @ColumnInfo(name = "responseImageData") var responseImageData: ByteArray?,
     @ColumnInfo(name = "graphQlDetected") var graphQlDetected: Boolean = false,
     @ColumnInfo(name = "graphQlOperationName") var graphQlOperationName: String?,
+    @ColumnInfo(name = "graphQlVariables") var graphQlVariables: String? = null,
+    @ColumnInfo(name = "errorBody") var errorBody: String? = null,
 ) {
     @Ignore
     constructor() : this(
@@ -90,6 +93,8 @@ internal class HttpTransaction(
         responseBody = null,
         responseImageData = null,
         graphQlOperationName = null,
+        graphQlVariables = null,
+        errorBody = null,
     )
 
     enum class Status {
@@ -202,6 +207,29 @@ internal class HttpTransaction(
             httpHeaders = getParsedResponseHeaders(),
             withMarkup = withMarkup,
         )
+
+    fun setGraphQLVariables(httpUrl: HttpUrl) {
+        val variables = httpUrl.queryParameter("variables")
+        if (variables != null) {
+            graphQlVariables = variables
+        }
+    }
+
+    fun setGraphQLVariablesFromBody(body: String?) {
+        if (body.isNullOrBlank()) return
+        try {
+            val jsonObject = body.toJsonMap()
+            val variables = jsonObject.get("variables")
+            if (variables != null) {
+                graphQlVariables = JsonConverter.instance.toJson(variables)
+            }
+        } catch (e: IOException) {
+            errorBody = e.message
+        }
+    }
+
+    private fun String.toJsonMap(): Map<String, Any?> =
+        JsonConverter.instance.fromJson(this, object : TypeToken<Map<String, Any?>>() {}.type)
 
     private fun toHttpHeaderList(headers: Headers): List<HttpHeader> {
         val httpHeaders = ArrayList<HttpHeader>()
@@ -335,6 +363,8 @@ internal class HttpTransaction(
                 ) != false
             ) &&
             (graphQlOperationName == other.graphQlOperationName) &&
-            (graphQlDetected == other.graphQlDetected)
+            (graphQlDetected == other.graphQlDetected) &&
+            (graphQlVariables == other.graphQlVariables) &&
+            (errorBody == other.errorBody)
     }
 }

@@ -121,6 +121,8 @@ internal class HttpTransactionTupleTest {
         error: String? = null,
         graphQlOperationName: String? = null,
         graphQLDetected: Boolean = false,
+        graphQlVariables: String? = null,
+        errorBody: String? = null,
     ) = HttpTransactionTuple(
         id = id,
         requestDate = requestDate,
@@ -136,5 +138,7 @@ internal class HttpTransactionTupleTest {
         error = error,
         graphQlOperationName = graphQlOperationName,
         graphQlDetected = graphQLDetected,
+        graphQlVariables = graphQlVariables,
+        errorBody = errorBody,
     )
 }

@@ -114,6 +114,9 @@ internal class ResponseProcessor(
             val decodedContent = decodePayload(response, payload.readByteString())
             transaction.responseBody = decodedContent
             transaction.isResponseBodyEncoded = decodedContent == null
+            if (response.code in HTTP_ERROR_START..HTTP_ERROR_END && decodedContent != null) {
+                transaction.errorBody = decodedContent
+            }
         }
     }
 
@@ -169,5 +172,7 @@ internal class ResponseProcessor(
         const val MAX_BLOB_SIZE = 1_000_000L
 
         const val CONTENT_TYPE_IMAGE = "image"
+        const val HTTP_ERROR_START = 400
+        const val HTTP_ERROR_END = 599
     }
 }
