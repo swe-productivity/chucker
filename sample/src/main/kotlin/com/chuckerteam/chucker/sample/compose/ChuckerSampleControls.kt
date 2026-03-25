@@ -47,13 +47,7 @@ import com.chuckerteam.chucker.sample.compose.theme.ChuckerTheme
 @Composable
 internal fun ChuckerSampleControls(
     selectedInterceptorType: InterceptorType,
-    onInterceptorTypeChange: (InterceptorType) -> Unit,
-    onInterceptorTypeLabelClick: () -> Unit,
-    onDoHttp: () -> Unit,
-    onDoGraphQL: () -> Unit,
-    onLaunchChucker: () -> Unit,
-    onExportToLogFile: () -> Unit,
-    onExportToHarFile: () -> Unit,
+    callbacks: ChuckerSampleCallbacks,
     isChuckerInOpMode: Boolean,
     isExpandedWidth: Boolean = false,
 ) {
@@ -78,7 +72,7 @@ internal fun ChuckerSampleControls(
                     contentDescription =
                         "$interceptorTypeLabel, opens external link, double tap to activate"
                 }.clickable {
-                    onInterceptorTypeLabelClick.invoke()
+                    callbacks.onInterceptorTypeLabelClick.invoke()
                 },
     )
 
@@ -91,14 +85,14 @@ internal fun ChuckerSampleControls(
         LabeledRadioButton(
             label = stringResource(R.string.application_type),
             selected = selectedInterceptorType == InterceptorType.APPLICATION,
-            onClick = { onInterceptorTypeChange(InterceptorType.APPLICATION) },
+            onClick = { callbacks.onInterceptorTypeChange(InterceptorType.APPLICATION) },
             modifier = Modifier.weight(1f),
             index = 1,
         )
         LabeledRadioButton(
             label = stringResource(R.string.network_type),
             selected = selectedInterceptorType == InterceptorType.NETWORK,
-            onClick = { onInterceptorTypeChange(InterceptorType.NETWORK) },
+            onClick = { callbacks.onInterceptorTypeChange(InterceptorType.NETWORK) },
             modifier = Modifier.weight(1f),
             index = 2,
         )
@@ -113,8 +107,8 @@ internal fun ChuckerSampleControls(
         )
 
     listOf(
-        stringResource(R.string.do_http_activity) to onDoHttp,
-        stringResource(R.string.do_graphql_activity) to onDoGraphQL,
+        stringResource(R.string.do_http_activity) to callbacks.onDoHttp,
+        stringResource(R.string.do_graphql_activity) to callbacks.onDoGraphQL,
     ).forEachIndexed { index, (label, action) ->
         Button(
             onClick = action,
@@ -127,7 +121,7 @@ internal fun ChuckerSampleControls(
 
     if (isChuckerInOpMode) {
         Button(
-            onClick = onLaunchChucker,
+            onClick = callbacks.onLaunchChucker,
             modifier = modifier.testTag(ChuckerTestTags.CONTROLS_LAUNCH_CHUCKER_BUTTON),
             shape =
                 androidx.compose.foundation.shape
@@ -138,6 +132,15 @@ internal fun ChuckerSampleControls(
                     stringResource(R.string.launch_chucker_directly),
             )
         }
+        Button(
+            onClick = callbacks.onLaunchChuckerInApp,
+            modifier = modifier.testTag(ChuckerTestTags.CONTROLS_LAUNCH_IN_APP_BUTTON),
+            shape =
+                androidx.compose.foundation.shape
+                    .RoundedCornerShape(4.dp),
+        ) {
+            Text(text = stringResource(R.string.launch_chucker_in_app))
+        }
     }
 
     Spacer(modifier = Modifier.width(24.dp))
@@ -147,7 +150,7 @@ internal fun ChuckerSampleControls(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Button(
-                onClick = onExportToLogFile,
+                onClick = callbacks.onExportToLogFile,
                 modifier =
                     Modifier.weight(1f).testTag(ChuckerTestTags.CONTROLS_EXPORT_LOG_BUTTON),
                 shape =
@@ -157,7 +160,7 @@ internal fun ChuckerSampleControls(
                 Text(stringResource(R.string.export_to_file))
             }
             Button(
-                onClick = onExportToHarFile,
+                onClick = callbacks.onExportToHarFile,
                 modifier =
                     Modifier
                         .weight(1f)
@@ -207,27 +210,17 @@ private fun ChuckerSampleControlsPreview() {
         ) {
             ChuckerSampleControls(
                 selectedInterceptorType = InterceptorType.NETWORK,
-                onInterceptorTypeChange = {
-                    // DO Nothing
-                },
-                onInterceptorTypeLabelClick = {
-                    // DO Nothing
-                },
-                onDoHttp = {
-                    // DO Nothing
-                },
-                onDoGraphQL = {
-                    // DO Nothing
-                },
-                onLaunchChucker = {
-                    // DO Nothing
-                },
-                onExportToLogFile = {
-                    // DO Nothing
-                },
-                onExportToHarFile = {
-                    // DO Nothing
-                },
+                callbacks =
+                    ChuckerSampleCallbacks(
+                        onInterceptorTypeChange = {},
+                        onInterceptorTypeLabelClick = {},
+                        onDoHttp = {},
+                        onDoGraphQL = {},
+                        onLaunchChucker = {},
+                        onLaunchChuckerInApp = {},
+                        onExportToLogFile = {},
+                        onExportToHarFile = {},
+                    ),
                 isChuckerInOpMode = true,
             )
         }
@@ -255,27 +248,17 @@ private fun ChuckerSampleControlsTabletPreview() {
         ) {
             ChuckerSampleControls(
                 selectedInterceptorType = InterceptorType.NETWORK,
-                onInterceptorTypeChange = {
-                    // DO Nothing
-                },
-                onInterceptorTypeLabelClick = {
-                    // DO Nothing
-                },
-                onDoHttp = {
-                    // DO Nothing
-                },
-                onDoGraphQL = {
-                    // DO Nothing
-                },
-                onLaunchChucker = {
-                    // DO Nothing
-                },
-                onExportToLogFile = {
-                    // DO Nothing
-                },
-                onExportToHarFile = {
-                    // DO Nothing
-                },
+                callbacks =
+                    ChuckerSampleCallbacks(
+                        onInterceptorTypeChange = {},
+                        onInterceptorTypeLabelClick = {},
+                        onDoHttp = {},
+                        onDoGraphQL = {},
+                        onLaunchChucker = {},
+                        onLaunchChuckerInApp = {},
+                        onExportToLogFile = {},
+                        onExportToHarFile = {},
+                    ),
                 isChuckerInOpMode = true,
             )
         }

@@ -19,4 +19,12 @@ public object Chucker {
     public fun dismissNotifications(context: Context) {
         // Empty method for the library-no-op artifact
     }
+
+    @JvmStatic
+    public fun getTransactionListFragment(): ChuckerTransactionListFragment =
+        ChuckerTransactionListFragment.newInstance()
+
+    @JvmStatic
+    public fun getTransactionDetailFragment(transactionId: Long): ChuckerTransactionDetailFragment =
+        ChuckerTransactionDetailFragment.newInstance(transactionId)
 }

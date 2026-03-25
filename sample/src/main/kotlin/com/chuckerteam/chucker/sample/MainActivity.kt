@@ -20,6 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import com.chuckerteam.chucker.api.Chucker
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ExportFormat
+import com.chuckerteam.chucker.sample.compose.ChuckerSampleCallbacks
 import com.chuckerteam.chucker.sample.compose.ChuckerSampleMainScreen
 import com.chuckerteam.chucker.sample.compose.theme.ChuckerTheme
 import kotlinx.coroutines.Dispatchers
@@ -48,28 +49,24 @@ class MainActivity : ComponentActivity() {
                 ChuckerSampleMainScreen(
                     widthSizeClass = windowSize.widthSizeClass,
                     selectedInterceptorType = selectedType,
-                    onInterceptorTypeChange = { newType ->
-                        selectedType = newType
-                        interceptorTypeSelector.value = newType
-                    },
-                    onInterceptorTypeLabelClick = ::openUrlInBrowser,
-                    onDoHttp = {
-                        for (task in httpTasks) {
-                            task.run()
-                        }
-                    },
-                    onDoGraphQL = {
-                        GraphQlTask(client).run()
-                    },
-                    onLaunchChucker = {
-                        launchChuckerDirectly()
-                    },
-                    onExportToLogFile = {
-                        generateExportFile(ExportFormat.LOG)
-                    },
-                    onExportToHarFile = {
-                        generateExportFile(ExportFormat.HAR)
-                    },
+                    callbacks =
+                        ChuckerSampleCallbacks(
+                            onInterceptorTypeChange = { newType ->
+                                selectedType = newType
+                                interceptorTypeSelector.value = newType
+                            },
+                            onInterceptorTypeLabelClick = ::openUrlInBrowser,
+                            onDoHttp = {
+                                for (task in httpTasks) {
+                                    task.run()
+                                }
+                            },
+                            onDoGraphQL = { GraphQlTask(client).run() },
+                            onLaunchChucker = { launchChuckerDirectly() },
+                            onLaunchChuckerInApp = { InAppChuckerActivity.start(this) },
+                            onExportToLogFile = { generateExportFile(ExportFormat.LOG) },
+                            onExportToHarFile = { generateExportFile(ExportFormat.HAR) },
+                        ),
                     isChuckerInOpMode = Chucker.isOp,
                 )
             }

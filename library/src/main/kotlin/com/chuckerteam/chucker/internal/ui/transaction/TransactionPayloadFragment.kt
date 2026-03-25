@@ -247,15 +247,16 @@ internal class TransactionPayloadFragment :
         val transaction = viewModel.transaction.value
 
         if (shouldShowSearchIcon(transaction)) {
-            val searchMenuItem = menu.findItem(R.id.search)
-            searchMenuItem.isVisible = true
-            val searchView = searchMenuItem.actionView as SearchView
-            searchView.setOnQueryTextListener(this)
-            searchView.setIconifiedByDefault(true)
+            menu.findItem(R.id.search)?.let { searchMenuItem ->
+                searchMenuItem.isVisible = true
+                val searchView = searchMenuItem.actionView as SearchView
+                searchView.setOnQueryTextListener(this)
+                searchView.setIconifiedByDefault(true)
+            }
         }
 
         if (shouldShowSaveIcon(transaction)) {
-            menu.findItem(R.id.save_body).apply {
+            menu.findItem(R.id.save_body)?.apply {
                 isVisible = true
                 setOnMenuItemClickListener {
                     createFileToSaveBody()
@@ -267,10 +268,11 @@ internal class TransactionPayloadFragment :
         if (payloadType == PayloadType.REQUEST) {
             viewModel.doesRequestBodyRequireEncoding.observe(
                 viewLifecycleOwner,
-                { menu.findItem(R.id.encode_url).isVisible = it },
-            )
+            ) { shouldEncode ->
+                menu.findItem(R.id.encode_url)?.let { it.isVisible = shouldEncode }
+            }
         } else {
-            menu.findItem(R.id.encode_url).isVisible = false
+            menu.findItem(R.id.encode_url)?.let { it.isVisible = false }
         }
 
         super.onCreateOptionsMenu(menu, inflater)

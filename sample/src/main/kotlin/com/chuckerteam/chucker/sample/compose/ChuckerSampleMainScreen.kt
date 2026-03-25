@@ -43,13 +43,7 @@ import com.chuckerteam.chucker.sample.compose.theme.ChuckerTheme
  *
  * @param widthSizeClass Indicates the current window width size class to switch layouts.
  * @param selectedInterceptorType Currently selected interceptor type (HTTP or GraphQL).
- * @param onInterceptorTypeChange Callback when a new interceptor type is selected by the user.
- * @param onInterceptorTypeLabelClick Callback when the interceptor type label is clicked.
- * @param onDoHttp Called to perform a sample HTTP request.
- * @param onDoGraphQL Called to perform a sample GraphQL request.
- * @param onLaunchChucker Called to open the Chucker transaction list UI.
- * @param onExportToLogFile Called to export network logs to a plaintext file.
- * @param onExportToHarFile Called to export network logs to a HAR (HTTP Archive) file.
+ * @param callbacks Event callbacks for user interactions.
  * @param isChuckerInOpMode If true, displays the Chucker-specific operation buttons.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,13 +51,7 @@ import com.chuckerteam.chucker.sample.compose.theme.ChuckerTheme
 internal fun ChuckerSampleMainScreen(
     widthSizeClass: WindowWidthSizeClass,
     selectedInterceptorType: InterceptorType,
-    onInterceptorTypeChange: (InterceptorType) -> Unit,
-    onInterceptorTypeLabelClick: () -> Unit,
-    onDoHttp: () -> Unit,
-    onDoGraphQL: () -> Unit,
-    onLaunchChucker: () -> Unit,
-    onExportToLogFile: () -> Unit,
-    onExportToHarFile: () -> Unit,
+    callbacks: ChuckerSampleCallbacks,
     isChuckerInOpMode: Boolean,
 ) {
     val isExpandedWidth = widthSizeClass == WindowWidthSizeClass.Expanded
@@ -107,13 +95,7 @@ internal fun ChuckerSampleMainScreen(
                     Column(modifier = Modifier.weight(1f)) {
                         ChuckerSampleControls(
                             selectedInterceptorType = selectedInterceptorType,
-                            onInterceptorTypeChange = onInterceptorTypeChange,
-                            onInterceptorTypeLabelClick = onInterceptorTypeLabelClick,
-                            onDoHttp = onDoHttp,
-                            onDoGraphQL = onDoGraphQL,
-                            onLaunchChucker = onLaunchChucker,
-                            onExportToLogFile = onExportToLogFile,
-                            onExportToHarFile = onExportToHarFile,
+                            callbacks = callbacks,
                             isChuckerInOpMode = isChuckerInOpMode,
                             isExpandedWidth = true,
                         )
@@ -155,13 +137,7 @@ internal fun ChuckerSampleMainScreen(
                     )
                     ChuckerSampleControls(
                         selectedInterceptorType = selectedInterceptorType,
-                        onInterceptorTypeChange = onInterceptorTypeChange,
-                        onInterceptorTypeLabelClick = onInterceptorTypeLabelClick,
-                        onDoHttp = onDoHttp,
-                        onDoGraphQL = onDoGraphQL,
-                        onLaunchChucker = onLaunchChucker,
-                        onExportToLogFile = onExportToLogFile,
-                        onExportToHarFile = onExportToHarFile,
+                        callbacks = callbacks,
                         isChuckerInOpMode = isChuckerInOpMode,
                     )
                 }
@@ -206,27 +182,17 @@ private fun ChuckerSampleMainScreenPreview() {
         ChuckerSampleMainScreen(
             widthSizeClass = WindowWidthSizeClass.Compact,
             selectedInterceptorType = InterceptorType.APPLICATION,
-            onInterceptorTypeChange = {
-                // DO Nothing
-            },
-            onInterceptorTypeLabelClick = {
-                // DO Nothing
-            },
-            onDoHttp = {
-                // DO Nothing
-            },
-            onDoGraphQL = {
-                // DO Nothing
-            },
-            onLaunchChucker = {
-                // DO Nothing
-            },
-            onExportToLogFile = {
-                // DO Nothing
-            },
-            onExportToHarFile = {
-                // DO Nothing
-            },
+            callbacks =
+                ChuckerSampleCallbacks(
+                    onInterceptorTypeChange = {},
+                    onInterceptorTypeLabelClick = {},
+                    onDoHttp = {},
+                    onDoGraphQL = {},
+                    onLaunchChucker = {},
+                    onLaunchChuckerInApp = {},
+                    onExportToLogFile = {},
+                    onExportToHarFile = {},
+                ),
             isChuckerInOpMode = true,
         )
     }
@@ -252,27 +218,17 @@ private fun ChuckerSampleMainScreenTabletPreview() {
         ChuckerSampleMainScreen(
             widthSizeClass = WindowWidthSizeClass.Expanded,
             selectedInterceptorType = InterceptorType.APPLICATION,
-            onInterceptorTypeChange = {
-                // DO Nothing
-            },
-            onInterceptorTypeLabelClick = {
-                // DO Nothing
-            },
-            onDoHttp = {
-                // DO Nothing
-            },
-            onDoGraphQL = {
-                // DO Nothing
-            },
-            onLaunchChucker = {
-                // DO Nothing
-            },
-            onExportToLogFile = {
-                // DO Nothing
-            },
-            onExportToHarFile = {
-                // DO Nothing
-            },
+            callbacks =
+                ChuckerSampleCallbacks(
+                    onInterceptorTypeChange = {},
+                    onInterceptorTypeLabelClick = {},
+                    onDoHttp = {},
+                    onDoGraphQL = {},
+                    onLaunchChucker = {},
+                    onLaunchChuckerInApp = {},
+                    onExportToLogFile = {},
+                    onExportToHarFile = {},
+                ),
             isChuckerInOpMode = true,
         )
     }

@@ -90,6 +90,14 @@ class MainActivityTest {
     }
 
     @Test
+    fun launchChuckerInAppButton_shouldBeVisibleAndClickable() {
+        composeRule
+            .onNodeWithTag(ChuckerTestTags.CONTROLS_LAUNCH_IN_APP_BUTTON)
+            .assertIsDisplayed()
+            .assertHasClickAction()
+    }
+
+    @Test
     fun exportButtons_shouldBeVisibleAndClickable() {
         composeRule
             .onNodeWithTag(ChuckerTestTags.CONTROLS_EXPORT_LOG_BUTTON)
