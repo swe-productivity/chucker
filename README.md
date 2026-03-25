@@ -123,7 +123,7 @@ val client = OkHttpClient.Builder()
         .build()
 ```
 
-Chucker can be added either as network interceptor(observes requests sent over the network) or as an application interceptor(observes requests at application layer).
+Chucker can be added either as network interceptor(observes requests sent over the network) or as an application interceptor (observes requests at application layer). You can read more about this topic in the [official OkHttp documentation](https://square.github.io/okhttp/interceptors/)
 
 ### Redact-Header 👮‍♂️
 
